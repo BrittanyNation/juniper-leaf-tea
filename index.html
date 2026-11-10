@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juniper & Leaf Tea Co. — Small-Batch Teas, Blended Fresh in Clarksville</title>
+  <meta name="description" content="Juniper & Leaf Tea Co. is a neighborhood tea studio in Clarksville, Tennessee. Shop twelve small-batch teas by tea family, pick a tin size, and choose delivery or pickup — every order confirmed with a reference number.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Juniper & Leaf Tea Co. — Small-Batch Teas, Blended Fresh in Clarksville">
+  <meta property="og:description" content="Twelve small-batch teas by tea family, three tin sizes, delivery or pickup, and a real confirmation for every order.">
+  <meta property="og:image" content="https://brittanynation.github.io/juniper-leaf-tea/og-image.png">
+  <meta property="og:url" content="https://brittanynation.github.io/juniper-leaf-tea/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html">Juniper & Leaf <span>Tea Co.</span></a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="index.html" aria-current="page">Shop Teas</a>
+        <a href="cart.html">Basket &amp; Checkout</a>
+        <a href="visit.html">Visit &amp; Workshops</a>
+      </nav>
+      <button class="basket-btn" id="basketBtn" type="button" aria-label="Open your basket">Basket (0)</button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="hero">
+      <div>
+        <h1>Small-batch tea, <em>blended fresh</em> in Clarksville.</h1>
+        <p>Juniper &amp; Leaf Tea Co. is a small neighborhood tea shop. Every tea is blended in small batches in the shop — no warehouses, no stale tins, no dust. If it is on the shelf, it was blended this month.</p>
+        <div class="hero-cta">
+          <a class="btn btn-rose" href="#shop">Shop teas</a>
+          <a class="btn btn-ghost" href="visit.html">Visit the shop</a>
+        </div>
+      </div>
+      <img src="images/hero.jpg" alt="A warm tea scene with a teapot and cup on a tray, surrounded by autumn leaves and candles">
+    </div>
+
+    <div class="trust-band" aria-label="Shop promises">
+      <div class="trust-card"><strong>Blended in small batches</strong><p>Every tea is blended in the shop, never warehoused.</p></div>
+      <div class="trust-card"><strong>Same-day delivery</strong><p>Order by 2 PM for delivery today, Monday to Saturday.</p></div>
+      <div class="trust-card"><strong>Free over $60</strong><p>Delivery is free once your order reaches $60 after discounts.</p></div>
+      <div class="trust-card"><strong>No dust, ever</strong><p>Just the tea — whole leaf, no dust, no flavorings, no mystery blends.</p></div>
+    </div>
+
+    <section id="shop">
+      <div class="section-head">
+        <h2>The tea shelf</h2>
+        <p>Twelve teas, priced by tin. Taster is the 1 oz tin, Classic is the full 4 oz tin, Pantry is the 8 oz big one. Every tea lists its form so you know exactly what you are getting.</p>
+      </div>
+
+      <div class="toolbar">
+        <input type="search" id="searchInput" placeholder="Search teas or flavors…" aria-label="Search teas">
+        <select id="sortSelect" aria-label="Sort teas">
+          <option value="featured">Sort: Featured</option>
+          <option value="price-asc">Price: low to high</option>
+          <option value="price-desc">Price: high to low</option>
+          <option value="name">Name: A to Z</option>
+        </select>
+      </div>
+      <div class="toolbar">
+        <div class="chips" id="familyChips" role="group" aria-label="Filter by tea family">
+          <button class="chip" type="button" data-family="All" aria-pressed="true">All teas</button>
+          <button class="chip" type="button" data-family="Green" aria-pressed="false">Green</button>
+          <button class="chip" type="button" data-family="Black" aria-pressed="false">Black</button>
+          <button class="chip" type="button" data-family="Oolong" aria-pressed="false">Oolong</button>
+          <button class="chip" type="button" data-family="Herbal" aria-pressed="false">Herbal</button>
+          <button class="chip" type="button" data-family="White" aria-pressed="false">White</button>
+          <button class="chip" type="button" data-family="Rooibos" aria-pressed="false">Rooibos</button>
+        </div>
+        <p class="result-count" id="resultCount" aria-live="polite"></p>
+      </div>
+
+      <div class="grid" id="teaGrid"></div>
+    </section>
+  </main>
+
+  <!-- Tea detail modal -->
+  <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <img id="modalImg" src="" alt="">
+      <div class="modal-body">
+        <button class="modal-close" id="modalClose" type="button" aria-label="Close tea details">&times;</button>
+        <h3 id="modalTitle"></h3>
+        <p class="card-family" id="modalFamily"></p>
+        <p class="desc" id="modalDesc"></p>
+        <div class="size-row" id="sizeRow" role="group" aria-label="Choose a size"></div>
+        <div class="qty-row">
+          <span>Quantity</span>
+          <button type="button" id="qtyMinus" aria-label="Decrease quantity">&minus;</button>
+          <output id="qtyOut" aria-live="polite">1</output>
+          <button type="button" id="qtyPlus" aria-label="Increase quantity">+</button>
+        </div>
+        <div class="modal-total"><span>Total</span><span id="modalTotal"></span></div>
+        <button class="btn btn-rose" id="modalAddBtn" type="button">Add to basket</button>
+        <p class="modal-note">Blended in small batches and sealed in tins. Keep cool, dark, and dry.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Basket drawer -->
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <aside class="drawer" id="basketDrawer" aria-label="Your basket">
+    <div class="drawer-head">
+      <h2>Your basket</h2>
+      <button class="modal-close" id="drawerClose" type="button" aria-label="Close basket">&times;</button>
+    </div>
+    <div class="drawer-body" id="drawerBody"></div>
+    <div class="drawer-foot" id="drawerFoot"></div>
+  </aside>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div>
+        <strong>Juniper & Leaf Tea Co.</strong>
+        <p>318 Tea Garden Lane, Clarksville, Tennessee</p>
+        <p>Open Monday to Saturday, 9 AM to 6 PM. Closed Sundays.</p>
+      </div>
+      <div>
+        <strong>Good to know</strong>
+        <p><a href="visit.html">Visit &amp; workshops</a> &middot; <a href="cart.html">Basket &amp; checkout</a></p>
+        <p>A fictional portfolio concept by Brittany Nation. No real orders are placed.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="shop.js"></script>
+</body>
+</html>
